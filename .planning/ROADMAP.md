@@ -33,7 +33,7 @@ Plans:
 - [x] 01-01-PLAN.md — Vite scaffold + shared types (ChunkCoord, BlockIds) + coords utils + BlockRegistry + Chunk data class
 - [x] 01-02-PLAN.md — Terrain Web Worker: NoiseGenerator (4-octave FBM) + TerrainRules (block placement) + TerrainWorker entry point
 - [x] 01-03-PLAN.md — World Manager (chunk registry, worker orchestration, back-pressure) + CulledMesher (face-culled geometry builder)
-- [ ] 01-04-PLAN.md — Three.js Renderer + Game loop (wires everything) + human verification: browser shows terrain
+- [x] 01-04-PLAN.md — Three.js Renderer + Game loop (wires everything) + human verification: browser shows terrain
 
 ### Phase 2: World & Player
 **Goal**: The world looks like a Minecraft-style game and the player can freely explore it — chunks load and unload as the player moves, textures and lighting are visible, fog hides the render boundary, and the player has gravity, collision, and jump
