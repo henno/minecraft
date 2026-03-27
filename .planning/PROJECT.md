@@ -12,7 +12,10 @@ Performant infinite terrain generation and rendering in the browser — if the w
 
 ### Validated
 
-(None yet — ship to validate)
+- ✓ Procedural terrain generation with chunk-based system — Phase 1
+- ✓ TypeScript/Vite project with flat typed array storage — Phase 1
+- ✓ Web Worker terrain generation (no main thread blocking) — Phase 1
+- ✓ Chunk-batched rendering (one BufferGeometry per chunk) — Phase 1
 
 ### Active
 
@@ -76,4 +79,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-03-27 after initialization*
+*Last updated: 2026-03-27 after Phase 1 completion*
