@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 01-foundation 01-02-PLAN.md
-last_updated: "2026-03-27T18:36:39.291Z"
+stopped_at: Completed 01-foundation 01-03-PLAN.md
+last_updated: "2026-03-27T18:40:46.837Z"
 last_activity: 2026-03-27
 progress:
   total_phases: 3
   completed_phases: 0
   total_plans: 4
-  completed_plans: 2
+  completed_plans: 3
   percent: 0
 ---
 
@@ -26,7 +26,7 @@ See: .planning/PROJECT.md (updated 2026-03-27)
 ## Current Position
 
 Phase: 01 (foundation) — EXECUTING
-Plan: 3 of 4
+Plan: 4 of 4
 Status: Ready to execute
 Last activity: 2026-03-27
 
@@ -54,6 +54,7 @@ Progress: [░░░░░░░░░░] 0%
 *Updated after each plan completion*
 | Phase 01-foundation P01 | 5 | 3 tasks | 8 files |
 | Phase 01-foundation P02 | 2 | 3 tasks | 3 files |
+| Phase 01-foundation P03 | 3 | 2 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -71,6 +72,9 @@ Recent decisions affecting current work:
 - [Phase 01-foundation]: 2D simplex noise only (no createNoise3D) for terrain — no caves in v1 per CONTEXT.md; 3x faster than 3D
 - [Phase 01-foundation]: SEA_LEVEL=20 constant: ~20 blocks ocean depth, ~44 blocks above-sea terrain range in CHUNK_HEIGHT=64
 - [Phase 01-foundation]: NoiseGenerator singleton per worker lifetime — avoids PRNG re-init overhead on each chunk message
+- [Phase 01-foundation]: CulledMesher is Three.js-agnostic (zero three imports) — renderer wires BufferGeometry in Plan 04
+- [Phase 01-foundation]: MeshBuffers includes uvs field (simple [0,1] per face) to prepare for Plan 04 texture atlas without redesign
+- [Phase 01-foundation]: World chunk boundary: emit face when neighbour chunk not loaded (conservative — avoids holes at chunk edges)
 
 ### Open Questions (resolve at Phase 1 planning)
 
@@ -88,6 +92,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-27T18:36:39.288Z
-Stopped at: Completed 01-foundation 01-02-PLAN.md
+Last session: 2026-03-27T18:40:46.834Z
+Stopped at: Completed 01-foundation 01-03-PLAN.md
 Resume file: None
