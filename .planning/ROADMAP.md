@@ -12,7 +12,7 @@ Three phases from nothing to a playable browser voxel engine. Phase 1 establishe
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [ ] **Phase 1: Foundation** - TypeScript project, chunk data structures, Web Worker terrain generation, and chunk-batched rendering pipeline
+- [x] **Phase 1: Foundation** - TypeScript project, chunk data structures, Web Worker terrain generation, and chunk-batched rendering pipeline (completed 2026-03-27)
 - [ ] **Phase 2: World & Player** - Textured visible world with lighting and fog, first-person player with physics and controls
 - [ ] **Phase 3: Interaction & Completeness** - Block breaking/placing, water rendering, 60fps performance target met
 
@@ -66,6 +66,6 @@ Phases execute in numeric order: 1 → 2 → 3
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation | 2/4 | In Progress|  |
+| 1. Foundation | 4/4 | Complete   | 2026-03-27 |
 | 2. World & Player | 0/TBD | Not started | - |
 | 3. Interaction & Completeness | 0/TBD | Not started | - |

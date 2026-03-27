@@ -3,8 +3,8 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: verifying
-stopped_at: "Checkpoint: Task 3 human-verify — run npm run dev and confirm terrain visible"
-last_updated: "2026-03-27T18:44:31.554Z"
+stopped_at: Completed 01-foundation 01-04-PLAN.md — Phase 1 fully verified
+last_updated: "2026-03-27T18:47:15.048Z"
 last_activity: 2026-03-27
 progress:
   total_phases: 3
@@ -56,6 +56,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 01-foundation P02 | 2 | 3 tasks | 3 files |
 | Phase 01-foundation P03 | 3 | 2 tasks | 2 files |
 | Phase 01-foundation P04 | 9 | 2 tasks | 3 files |
+| Phase 01-foundation P04 | 9 | 3 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -79,6 +80,9 @@ Recent decisions affecting current work:
 - [Phase 01-foundation]: WebGLRenderer (not WebGPURenderer) used for Safari compatibility — never use WebGPU in this project
 - [Phase 01-foundation]: Shared MeshLambertMaterial for all Phase 1 chunks — textures/atlas deferred to Phase 2
 - [Phase 01-foundation]: Stats.js FPS overlay guarded by import.meta.env.DEV — not in production bundles
+- [Phase 01-foundation]: WebGLRenderer (not WebGPURenderer) used for Safari compatibility — never use WebGPU in this project
+- [Phase 01-foundation]: Shared MeshLambertMaterial for all Phase 1 chunks — textures/atlas deferred to Phase 2
+- [Phase 01-foundation]: Stats.js FPS overlay guarded by import.meta.env.DEV — not in production bundles
 
 ### Open Questions (resolve at Phase 1 planning)
 
@@ -96,6 +100,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-27T18:44:31.542Z
-Stopped at: Checkpoint: Task 3 human-verify — run npm run dev and confirm terrain visible
+Last session: 2026-03-27T18:47:15.044Z
+Stopped at: Completed 01-foundation 01-04-PLAN.md — Phase 1 fully verified
 Resume file: None
