@@ -9,9 +9,9 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Terrain & World
 
-- [ ] **TERR-01**: Procedural terrain generates infinite landscape using simplex/Perlin noise with octaves
+- [x] **TERR-01**: Procedural terrain generates infinite landscape using simplex/Perlin noise with octaves
 - [ ] **TERR-02**: World is divided into chunks that load/unload as the player moves
-- [ ] **TERR-03**: Terrain includes varied elevation (hills, valleys, flat areas)
+- [x] **TERR-03**: Terrain includes varied elevation (hills, valleys, flat areas)
 - [ ] **TERR-04**: Chunks load progressively by distance to player (no hard pop-in)
 - [ ] **TERR-05**: Fog hides chunk boundaries at render distance edge
 
@@ -43,7 +43,7 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **TECH-01**: TypeScript codebase with Vite build tooling
 - [x] **TECH-02**: Chunk data stored as flat typed arrays (Uint8Array) for performance
 - [ ] **TECH-03**: One BufferGeometry per chunk (not per block) for draw call efficiency
-- [ ] **TECH-04**: Web Worker(s) for terrain generation to avoid main thread blocking
+- [x] **TECH-04**: Web Worker(s) for terrain generation to avoid main thread blocking
 
 ## v2 Requirements
 
@@ -85,10 +85,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 | TECH-01 | Phase 1 | Complete |
 | TECH-02 | Phase 1 | Complete |
 | TECH-03 | Phase 1 | Pending |
-| TECH-04 | Phase 1 | Pending |
-| TERR-01 | Phase 1 | Pending |
+| TECH-04 | Phase 1 | Complete |
+| TERR-01 | Phase 1 | Complete |
 | TERR-02 | Phase 1 | Pending |
-| TERR-03 | Phase 1 | Pending |
+| TERR-03 | Phase 1 | Complete |
 | TERR-04 | Phase 2 | Pending |
 | TERR-05 | Phase 2 | Pending |
 | REND-01 | Phase 2 | Pending |

@@ -31,7 +31,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 Plans:
 - [x] 01-01-PLAN.md — Vite scaffold + shared types (ChunkCoord, BlockIds) + coords utils + BlockRegistry + Chunk data class
-- [ ] 01-02-PLAN.md — Terrain Web Worker: NoiseGenerator (4-octave FBM) + TerrainRules (block placement) + TerrainWorker entry point
+- [x] 01-02-PLAN.md — Terrain Web Worker: NoiseGenerator (4-octave FBM) + TerrainRules (block placement) + TerrainWorker entry point
 - [ ] 01-03-PLAN.md — World Manager (chunk registry, worker orchestration, back-pressure) + CulledMesher (face-culled geometry builder)
 - [ ] 01-04-PLAN.md — Three.js Renderer + Game loop (wires everything) + human verification: browser shows terrain
 
@@ -66,6 +66,6 @@ Phases execute in numeric order: 1 → 2 → 3
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation | 0/4 | Not started | - |
+| 1. Foundation | 2/4 | In Progress|  |
 | 2. World & Player | 0/TBD | Not started | - |
 | 3. Interaction & Completeness | 0/TBD | Not started | - |
