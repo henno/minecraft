@@ -82,35 +82,35 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| TERR-01 | TBD | Pending |
-| TERR-02 | TBD | Pending |
-| TERR-03 | TBD | Pending |
-| TERR-04 | TBD | Pending |
-| TERR-05 | TBD | Pending |
-| REND-01 | TBD | Pending |
-| REND-02 | TBD | Pending |
-| REND-03 | TBD | Pending |
-| REND-04 | TBD | Pending |
-| REND-05 | TBD | Pending |
-| PLYR-01 | TBD | Pending |
-| PLYR-02 | TBD | Pending |
-| PLYR-03 | TBD | Pending |
-| PLYR-04 | TBD | Pending |
-| PLYR-05 | TBD | Pending |
-| BLCK-01 | TBD | Pending |
-| BLCK-02 | TBD | Pending |
-| BLCK-03 | TBD | Pending |
-| BLCK-04 | TBD | Pending |
-| TECH-01 | TBD | Pending |
-| TECH-02 | TBD | Pending |
-| TECH-03 | TBD | Pending |
-| TECH-04 | TBD | Pending |
+| TECH-01 | Phase 1 | Pending |
+| TECH-02 | Phase 1 | Pending |
+| TECH-03 | Phase 1 | Pending |
+| TECH-04 | Phase 1 | Pending |
+| TERR-01 | Phase 1 | Pending |
+| TERR-02 | Phase 1 | Pending |
+| TERR-03 | Phase 1 | Pending |
+| TERR-04 | Phase 2 | Pending |
+| TERR-05 | Phase 2 | Pending |
+| REND-01 | Phase 2 | Pending |
+| REND-02 | Phase 2 | Pending |
+| REND-03 | Phase 2 | Pending |
+| PLYR-01 | Phase 2 | Pending |
+| PLYR-02 | Phase 2 | Pending |
+| PLYR-03 | Phase 2 | Pending |
+| PLYR-04 | Phase 2 | Pending |
+| PLYR-05 | Phase 2 | Pending |
+| BLCK-01 | Phase 3 | Pending |
+| BLCK-02 | Phase 3 | Pending |
+| BLCK-03 | Phase 3 | Pending |
+| BLCK-04 | Phase 3 | Pending |
+| REND-04 | Phase 3 | Pending |
+| REND-05 | Phase 3 | Pending |
 
 **Coverage:**
 - v1 requirements: 23 total
-- Mapped to phases: 0
-- Unmapped: 23 ⚠️
+- Mapped to phases: 23
+- Unmapped: 0 ✓
 
 ---
 *Requirements defined: 2026-03-27*
-*Last updated: 2026-03-27 after initial definition*
+*Last updated: 2026-03-27 after roadmap creation*
