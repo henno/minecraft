@@ -1,2 +1,4 @@
-// Entry point — wired in Plan 04
-console.log('Tseburek engine starting...');
+import { Game } from './core/Game';
+
+const game = new Game();
+game.init();
