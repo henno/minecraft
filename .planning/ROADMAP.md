@@ -27,7 +27,13 @@ Decimal phases appear between their surrounding integers in numeric order.
   2. The browser console shows no errors; the renderer uses one draw call per chunk, not one per block
   3. Terrain data is generated in a Web Worker — the main thread does not freeze during chunk generation
   4. Voxel data is stored as Uint8Array flat arrays; chunk geometry uses a single BufferGeometry per chunk
-**Plans**: TBD
+**Plans**: 4 plans
+
+Plans:
+- [ ] 01-01-PLAN.md — Vite scaffold + shared types (ChunkCoord, BlockIds) + coords utils + BlockRegistry + Chunk data class
+- [ ] 01-02-PLAN.md — Terrain Web Worker: NoiseGenerator (4-octave FBM) + TerrainRules (block placement) + TerrainWorker entry point
+- [ ] 01-03-PLAN.md — World Manager (chunk registry, worker orchestration, back-pressure) + CulledMesher (face-culled geometry builder)
+- [ ] 01-04-PLAN.md — Three.js Renderer + Game loop (wires everything) + human verification: browser shows terrain
 
 ### Phase 2: World & Player
 **Goal**: The world looks like a Minecraft-style game and the player can freely explore it — chunks load and unload as the player moves, textures and lighting are visible, fog hides the render boundary, and the player has gravity, collision, and jump
@@ -60,6 +66,6 @@ Phases execute in numeric order: 1 → 2 → 3
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation | 0/TBD | Not started | - |
+| 1. Foundation | 0/4 | Not started | - |
 | 2. World & Player | 0/TBD | Not started | - |
 | 3. Interaction & Completeness | 0/TBD | Not started | - |
