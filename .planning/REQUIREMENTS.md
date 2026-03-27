@@ -40,8 +40,8 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Technical Foundation
 
-- [ ] **TECH-01**: TypeScript codebase with Vite build tooling
-- [ ] **TECH-02**: Chunk data stored as flat typed arrays (Uint8Array) for performance
+- [x] **TECH-01**: TypeScript codebase with Vite build tooling
+- [x] **TECH-02**: Chunk data stored as flat typed arrays (Uint8Array) for performance
 - [ ] **TECH-03**: One BufferGeometry per chunk (not per block) for draw call efficiency
 - [ ] **TECH-04**: Web Worker(s) for terrain generation to avoid main thread blocking
 
@@ -82,8 +82,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| TECH-01 | Phase 1 | Pending |
-| TECH-02 | Phase 1 | Pending |
+| TECH-01 | Phase 1 | Complete |
+| TECH-02 | Phase 1 | Complete |
 | TECH-03 | Phase 1 | Pending |
 | TECH-04 | Phase 1 | Pending |
 | TERR-01 | Phase 1 | Pending |
