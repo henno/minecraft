@@ -13,7 +13,17 @@ export const BlockIds = {
   STONE: 3,
   SAND:  4,
   WATER: 5,
+  WOOD:  6,
+  LEAVES: 7,
 } as const;
+
+export type BlockFace = 'px' | 'nx' | 'py' | 'ny' | 'pz' | 'nz';
+
+export interface FaceNormal {
+  x: number;
+  y: number;
+  z: number;
+}
 
 // Chunk grid coordinate (integer chunk position in the world grid)
 export interface ChunkCoord {
@@ -26,6 +36,14 @@ export interface WorldCoord {
   wx: number;
   wy: number;
   wz: number;
+}
+
+export interface VoxelTarget {
+  block: WorldCoord;
+  adjacent: WorldCoord;
+  normal: FaceNormal;
+  blockId: BlockId;
+  distance: number;
 }
 
 // Local voxel coordinate within a chunk (0 to CHUNK_SIZE-1 for x/z, 0 to CHUNK_HEIGHT-1 for y)

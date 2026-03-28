@@ -13,8 +13,8 @@ Three phases from nothing to a playable browser voxel engine. Phase 1 establishe
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Foundation** - TypeScript project, chunk data structures, Web Worker terrain generation, and chunk-batched rendering pipeline (completed 2026-03-27)
-- [ ] **Phase 2: World & Player** - Textured visible world with lighting and fog, first-person player with physics and controls
-- [ ] **Phase 3: Interaction & Completeness** - Block breaking/placing, water rendering, 60fps performance target met
+- [x] **Phase 2: World & Player** - Textured visible world with lighting and fog, first-person player with physics and controls (completed 2026-03-28)
+- [x] **Phase 3: Interaction & Completeness** - Block breaking/placing, transparent water, block palette completion, and 60fps validation (completed 2026-03-28)
 
 ## Phase Details
 
@@ -45,8 +45,14 @@ Plans:
   3. Fog fades the terrain at the render distance boundary so chunk edges are never visible
   4. The player can look around with the mouse, move with WASD, falls off edges, lands on terrain, and can jump
   5. Adjacent solid blocks do not render shared faces; directional shading makes top faces brighter than sides
-**Plans**: TBD
+**Plans**: 4 plans
 **UI hint**: yes
+
+Plans:
+- [x] `02-01-PLAN.md` — Runtime texture atlas + textured chunk material + atlas-aware UVs + directional face shading
+- [x] `02-02-PLAN.md` — InputManager + pointer lock HUD + first-person camera + camera-relative WASD intent
+- [x] `02-03-PLAN.md` — PlayerPhysics + voxel AABB collision + gravity/jump + reliable spawn
+- [x] `02-04-PLAN.md` — Player-centered chunk streaming + unload/dispose + fog + browser verification
 
 ### Phase 3: Interaction & Completeness
 **Goal**: The engine is complete — the player can break and place blocks, water renders as translucent, and the engine maintains 60fps at a reasonable render distance on modern hardware
@@ -57,7 +63,13 @@ Plans:
   2. Right-clicking an adjacent block face places the selected block type; all 5-10 block types can be placed
   3. Water blocks render as translucent with a visible blue tint; blocks below water are visible through it
   4. The engine runs at 60fps with a reasonable render distance (8+ chunks) on a modern desktop GPU
-**Plans**: TBD
+**Plans**: 4 plans
+
+Plans:
+- [x] `03-01-PLAN.md` - DDA block picking + targeted face resolution + click-safe interaction plumbing
+- [x] `03-02-PLAN.md` - `World.setBlock()` edit flow + break/place remesh propagation across chunk boundaries
+- [x] `03-03-PLAN.md` - Transparent water rendering path + remaining placeable block palette + interaction HUD polish
+- [x] `03-04-PLAN.md` - Performance instrumentation/tuning + 60fps verification at 8+ chunk render distance
 
 ## Progress
 
@@ -67,5 +79,5 @@ Phases execute in numeric order: 1 → 2 → 3
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation | 4/4 | Complete   | 2026-03-27 |
-| 2. World & Player | 0/TBD | Not started | - |
-| 3. Interaction & Completeness | 0/TBD | Not started | - |
+| 2. World & Player | 4/4 | Complete | 2026-03-28 |
+| 3. Interaction & Completeness | 4/4 | Complete | 2026-03-28 |
