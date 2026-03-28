@@ -2,6 +2,10 @@
 
 Browser voxel engine built with TypeScript, Three.js, and Vite. It generates an effectively infinite block world in the browser, streams chunks around the player, and supports the classic break/place interaction loop with a pixel-art texture atlas.
 
+## Public Demo
+
+- GitHub Pages: `https://henno.github.io/minecraft/`
+
 ## Project Status
 
 - v1 complete
@@ -61,6 +65,18 @@ Preview the production build locally:
 ```bash
 npm run preview
 ```
+
+Build with the GitHub Pages base path locally:
+
+```bash
+GITHUB_PAGES=true GITHUB_REPOSITORY=henno/minecraft npm run build
+```
+
+## Deployment
+
+- Push to `main` to trigger `.github/workflows/deploy-pages.yml`
+- The workflow installs dependencies, builds the Vite app, and publishes `dist/` to GitHub Pages
+- The production build automatically uses the repository base path when `GITHUB_PAGES=true`
 
 ## Controls
 
