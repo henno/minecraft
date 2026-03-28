@@ -12,31 +12,31 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **TERR-01**: Procedural terrain generates infinite landscape using simplex/Perlin noise with octaves
 - [x] **TERR-02**: World is divided into chunks that load/unload as the player moves
 - [x] **TERR-03**: Terrain includes varied elevation (hills, valleys, flat areas)
-- [ ] **TERR-04**: Chunks load progressively by distance to player (no hard pop-in)
-- [ ] **TERR-05**: Fog hides chunk boundaries at render distance edge
+- [x] **TERR-04**: Chunks load progressively by distance to player (no hard pop-in)
+- [x] **TERR-05**: Fog hides chunk boundaries at render distance edge
 
 ### Rendering
 
-- [ ] **REND-01**: Blocks render with 16x16 pixel art textures via a texture atlas
-- [ ] **REND-02**: Hidden faces between adjacent solid blocks are culled (not emitted)
-- [ ] **REND-03**: Basic directional lighting using face-normal shading (top bright, sides mid, bottom dark)
-- [ ] **REND-04**: Engine maintains 60fps at reasonable render distance on modern hardware
-- [ ] **REND-05**: Water blocks render as transparent/translucent with visible tint
+- [x] **REND-01**: Blocks render with 16x16 pixel art textures via a texture atlas
+- [x] **REND-02**: Hidden faces between adjacent solid blocks are culled (not emitted)
+- [x] **REND-03**: Basic directional lighting using face-normal shading (top bright, sides mid, bottom dark)
+- [x] **REND-04**: Engine maintains 60fps at reasonable render distance on modern hardware
+- [x] **REND-05**: Water blocks render as transparent/translucent with visible tint
 
 ### Player & Controls
 
-- [ ] **PLYR-01**: First-person camera with mouse look (Pointer Lock API)
-- [ ] **PLYR-02**: WASD movement relative to camera direction
-- [ ] **PLYR-03**: Player has gravity and falls when not on solid ground
-- [ ] **PLYR-04**: Player collides with solid blocks (AABB collision detection)
-- [ ] **PLYR-05**: Player can jump
+- [x] **PLYR-01**: First-person camera with mouse look (Pointer Lock API)
+- [x] **PLYR-02**: WASD movement relative to camera direction
+- [x] **PLYR-03**: Player has gravity and falls when not on solid ground
+- [x] **PLYR-04**: Player collides with solid blocks (AABB collision detection)
+- [x] **PLYR-05**: Player can jump
 
 ### Block Interaction
 
-- [ ] **BLCK-01**: Player can break blocks with left click (raycast to target)
-- [ ] **BLCK-02**: Player can place blocks with right click on adjacent face
-- [ ] **BLCK-03**: 5-10 block types available: grass, dirt, stone, sand, water, wood, leaves
-- [ ] **BLCK-04**: Breaking/placing triggers chunk remesh for affected chunk
+- [x] **BLCK-01**: Player can break blocks with left click (raycast to target)
+- [x] **BLCK-02**: Player can place blocks with right click on adjacent face
+- [x] **BLCK-03**: 5-10 block types available: grass, dirt, stone, sand, water, wood, leaves
+- [x] **BLCK-04**: Breaking/placing triggers chunk remesh for affected chunk
 
 ### Technical Foundation
 
@@ -89,22 +89,22 @@ Which phases cover which requirements. Updated during roadmap creation.
 | TERR-01 | Phase 1 | Complete |
 | TERR-02 | Phase 1 | Complete |
 | TERR-03 | Phase 1 | Complete |
-| TERR-04 | Phase 2 | Pending |
-| TERR-05 | Phase 2 | Pending |
-| REND-01 | Phase 2 | Pending |
-| REND-02 | Phase 2 | Pending |
-| REND-03 | Phase 2 | Pending |
-| PLYR-01 | Phase 2 | Pending |
-| PLYR-02 | Phase 2 | Pending |
-| PLYR-03 | Phase 2 | Pending |
-| PLYR-04 | Phase 2 | Pending |
-| PLYR-05 | Phase 2 | Pending |
-| BLCK-01 | Phase 3 | Pending |
-| BLCK-02 | Phase 3 | Pending |
-| BLCK-03 | Phase 3 | Pending |
-| BLCK-04 | Phase 3 | Pending |
-| REND-04 | Phase 3 | Pending |
-| REND-05 | Phase 3 | Pending |
+| TERR-04 | Phase 2 | Complete |
+| TERR-05 | Phase 2 | Complete |
+| REND-01 | Phase 2 | Complete |
+| REND-02 | Phase 2 | Complete |
+| REND-03 | Phase 2 | Complete |
+| PLYR-01 | Phase 2 | Complete |
+| PLYR-02 | Phase 2 | Complete |
+| PLYR-03 | Phase 2 | Complete |
+| PLYR-04 | Phase 2 | Complete |
+| PLYR-05 | Phase 2 | Complete |
+| BLCK-01 | Phase 3 | Complete |
+| BLCK-02 | Phase 3 | Complete |
+| BLCK-03 | Phase 3 | Complete |
+| BLCK-04 | Phase 3 | Complete |
+| REND-04 | Phase 3 | Complete |
+| REND-05 | Phase 3 | Complete |
 
 **Coverage:**
 - v1 requirements: 23 total
@@ -113,4 +113,4 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: 2026-03-27*
-*Last updated: 2026-03-27 after roadmap creation*
+*Last updated: 2026-03-28 after v1 completion*

@@ -1,5 +1,6 @@
-import { CHUNK_SIZE, CHUNK_HEIGHT } from '../types';
-import { isTransparent } from '../world/BlockRegistry';
+import { BlockFace, BlockId, BlockIds, CHUNK_SIZE, CHUNK_HEIGHT } from '../types';
+import type { TextureAtlasLayout } from '../rendering/TextureAtlas';
+import { getBlockTexture, isTransparent } from '../world/BlockRegistry';
 import { Chunk } from '../world/Chunk';
 
 /**
@@ -11,10 +12,16 @@ import { Chunk } from '../world/Chunk';
 export interface MeshBuffers {
   positions: Float32Array;  // 3 floats per vertex (x, y, z)
   normals: Float32Array;    // 3 floats per vertex (normal direction)
-  uvs: Float32Array;        // 2 floats per vertex (u, v) — simple [0,1] per face for now
+  colors: Float32Array;     // 3 floats per vertex (rgb face shading)
+  uvs: Float32Array;        // 2 floats per vertex (u, v) sampled from texture atlas
   indices: Uint32Array;     // 3 ints per triangle (index into position array)
   vertexCount: number;
   indexCount: number;
+}
+
+export interface ChunkMeshBuffers {
+  opaque: MeshBuffers;
+  water: MeshBuffers;
 }
 
 // The 6 face directions: +X, -X, +Y, -Y, +Z, -Z
@@ -22,36 +29,48 @@ export interface MeshBuffers {
 const FACES = [
   // +X face (right)
   {
+    face: 'px' as BlockFace,
+    brightness: 0.82,
     normal: [1, 0, 0] as const,
     neighbourOffset: [1, 0, 0] as const,
     corners: [[1,0,0],[1,1,0],[1,1,1],[1,0,1]] as const,
   },
   // -X face (left)
   {
+    face: 'nx' as BlockFace,
+    brightness: 0.82,
     normal: [-1, 0, 0] as const,
     neighbourOffset: [-1, 0, 0] as const,
     corners: [[0,0,1],[0,1,1],[0,1,0],[0,0,0]] as const,
   },
   // +Y face (top)
   {
+    face: 'py' as BlockFace,
+    brightness: 1,
     normal: [0, 1, 0] as const,
     neighbourOffset: [0, 1, 0] as const,
     corners: [[0,1,0],[0,1,1],[1,1,1],[1,1,0]] as const,
   },
   // -Y face (bottom)
   {
+    face: 'ny' as BlockFace,
+    brightness: 0.58,
     normal: [0, -1, 0] as const,
     neighbourOffset: [0, -1, 0] as const,
     corners: [[0,0,1],[0,0,0],[1,0,0],[1,0,1]] as const,
   },
   // +Z face (front)
   {
+    face: 'pz' as BlockFace,
+    brightness: 0.7,
     normal: [0, 0, 1] as const,
     neighbourOffset: [0, 0, 1] as const,
     corners: [[1,0,1],[1,1,1],[0,1,1],[0,0,1]] as const,
   },
   // -Z face (back)
   {
+    face: 'nz' as BlockFace,
+    brightness: 0.7,
     normal: [0, 0, -1] as const,
     neighbourOffset: [0, 0, -1] as const,
     corners: [[0,0,0],[0,1,0],[1,1,0],[1,0,0]] as const,
@@ -65,7 +84,7 @@ const FACES = [
  *   - A face is emitted when a solid block is adjacent to a transparent/air block.
  *   - For faces on chunk boundaries, the neighbour chunk is checked if provided.
  *     If no neighbour chunk is available, the boundary face is emitted (visible edge).
- *   - AIR and WATER blocks never emit faces.
+ *   - AIR never emits faces; WATER uses the transparent pass only.
  *   - One quad (2 triangles, 4 vertices) per visible face.
  *
  * NEVER create one Mesh per block — one merged BufferGeometry per chunk only.
@@ -77,19 +96,33 @@ const FACES = [
  */
 export function buildChunkMesh(
   chunk: Chunk,
+  atlas: TextureAtlasLayout,
   neighbours: Partial<Record<'px' | 'nx' | 'pz' | 'nz', Chunk>> = {}
-): MeshBuffers {
+): ChunkMeshBuffers {
   // Pre-allocate generous buffers; we track actual counts separately
   // Worst case: each block contributes 6 faces × 4 vertices = 24 vertices
   // In practice face culling reduces this by ~80% for solid terrain
   const maxQuads = CHUNK_SIZE * CHUNK_HEIGHT * CHUNK_SIZE * 6;
-  const positions = new Float32Array(maxQuads * 4 * 3);
-  const normals = new Float32Array(maxQuads * 4 * 3);
-  const uvs = new Float32Array(maxQuads * 4 * 2);
-  const indices = new Uint32Array(maxQuads * 6);
+  let opaqueVertexCount = 0;
+  let opaqueIndexCount = 0;
+  let waterVertexCount = 0;
+  let waterIndexCount = 0;
 
-  let vertexCount = 0;
-  let indexCount = 0;
+  const opaque = {
+    positions: new Float32Array(maxQuads * 4 * 3),
+    normals: new Float32Array(maxQuads * 4 * 3),
+    colors: new Float32Array(maxQuads * 4 * 3),
+    uvs: new Float32Array(maxQuads * 4 * 2),
+    indices: new Uint32Array(maxQuads * 6),
+  };
+
+  const water = {
+    positions: new Float32Array(maxQuads * 4 * 3),
+    normals: new Float32Array(maxQuads * 4 * 3),
+    colors: new Float32Array(maxQuads * 4 * 3),
+    uvs: new Float32Array(maxQuads * 4 * 2),
+    indices: new Uint32Array(maxQuads * 6),
+  };
 
   // World-space offset of this chunk's origin
   const originX = chunk.cx * CHUNK_SIZE;
@@ -99,8 +132,7 @@ export function buildChunkMesh(
     for (let lz = 0; lz < CHUNK_SIZE; lz++) {
       for (let lx = 0; lx < CHUNK_SIZE; lx++) {
         const blockId = chunk.getBlock(lx, ly, lz);
-        // Skip AIR and WATER — they don't emit faces
-        if (isTransparent(blockId)) continue;
+        if (blockId === BlockIds.AIR) continue;
 
         for (const face of FACES) {
           const [nx, ny, nz] = face.neighbourOffset;
@@ -132,54 +164,100 @@ export function buildChunkMesh(
             }
           }
 
-          // Only emit face if neighbour is transparent
-          if (!isTransparent(neighbourId)) continue;
-
-          // Emit quad: 4 vertices, 2 triangles
-          const [fnx, fny, fnz] = face.normal;
-          const baseVertex = vertexCount;
-
-          for (const corner of face.corners) {
-            const wx = originX + lx + corner[0];
-            const wy = ly + corner[1];
-            const wz = originZ + lz + corner[2];
-
-            const vi = vertexCount * 3;
-            positions[vi]     = wx;
-            positions[vi + 1] = wy;
-            positions[vi + 2] = wz;
-            normals[vi]     = fnx;
-            normals[vi + 1] = fny;
-            normals[vi + 2] = fnz;
-
-            vertexCount++;
+          if (blockId === BlockIds.WATER) {
+            if (neighbourId !== BlockIds.AIR) continue;
+            const emitted = emitFace(water, waterVertexCount, waterIndexCount, atlas, blockId, face, originX, originZ, lx, ly, lz);
+            waterVertexCount = emitted.vertexCount;
+            waterIndexCount = emitted.indexCount;
+            continue;
           }
 
-          // UV: simple [0,1] per face — 4 corners map to quad corners
-          const uvi = baseVertex * 2;
-          uvs[uvi]     = 0; uvs[uvi + 1] = 0;
-          uvs[uvi + 2] = 0; uvs[uvi + 3] = 1;
-          uvs[uvi + 4] = 1; uvs[uvi + 5] = 1;
-          uvs[uvi + 6] = 1; uvs[uvi + 7] = 0;
-
-          // Two triangles: (0,1,2) and (0,2,3) relative to baseVertex
-          indices[indexCount++] = baseVertex;
-          indices[indexCount++] = baseVertex + 1;
-          indices[indexCount++] = baseVertex + 2;
-          indices[indexCount++] = baseVertex;
-          indices[indexCount++] = baseVertex + 2;
-          indices[indexCount++] = baseVertex + 3;
+          if (!isTransparent(neighbourId)) continue;
+          const emitted = emitFace(opaque, opaqueVertexCount, opaqueIndexCount, atlas, blockId, face, originX, originZ, lx, ly, lz);
+          opaqueVertexCount = emitted.vertexCount;
+          opaqueIndexCount = emitted.indexCount;
         }
       }
     }
   }
 
-  // Return sliced views so callers get exactly the right size
   return {
-    positions: positions.slice(0, vertexCount * 3),
-    normals: normals.slice(0, vertexCount * 3),
-    uvs: uvs.slice(0, vertexCount * 2),
-    indices: indices.slice(0, indexCount),
+    opaque: finalizeMeshBuffers(opaque, opaqueVertexCount, opaqueIndexCount),
+    water: finalizeMeshBuffers(water, waterVertexCount, waterIndexCount),
+  };
+}
+
+function emitFace(
+  buffers: Omit<MeshBuffers, 'vertexCount' | 'indexCount'>,
+  vertexCount: number,
+  indexCount: number,
+  atlas: TextureAtlasLayout,
+  blockId: BlockId,
+  face: typeof FACES[number],
+  originX: number,
+  originZ: number,
+  lx: number,
+  ly: number,
+  lz: number
+): { vertexCount: number; indexCount: number } {
+  const [fnx, fny, fnz] = face.normal;
+  const baseVertex = vertexCount;
+  const brightness = face.brightness;
+  let nextVertexCount = vertexCount;
+  let nextIndexCount = indexCount;
+
+  for (const corner of face.corners) {
+    const wx = originX + lx + corner[0];
+    const wy = ly + corner[1];
+    const wz = originZ + lz + corner[2];
+
+    const vi = nextVertexCount * 3;
+    buffers.positions[vi] = wx;
+    buffers.positions[vi + 1] = wy;
+    buffers.positions[vi + 2] = wz;
+    buffers.normals[vi] = fnx;
+    buffers.normals[vi + 1] = fny;
+    buffers.normals[vi + 2] = fnz;
+    buffers.colors[vi] = brightness;
+    buffers.colors[vi + 1] = brightness;
+    buffers.colors[vi + 2] = brightness;
+
+    nextVertexCount++;
+  }
+
+  const tile = getBlockTexture(blockId, face.face);
+  const rect = atlas.rects[tile];
+  const uvi = baseVertex * 2;
+  buffers.uvs[uvi] = rect.u0;
+  buffers.uvs[uvi + 1] = rect.v0;
+  buffers.uvs[uvi + 2] = rect.u0;
+  buffers.uvs[uvi + 3] = rect.v1;
+  buffers.uvs[uvi + 4] = rect.u1;
+  buffers.uvs[uvi + 5] = rect.v1;
+  buffers.uvs[uvi + 6] = rect.u1;
+  buffers.uvs[uvi + 7] = rect.v0;
+
+  buffers.indices[nextIndexCount++] = baseVertex;
+  buffers.indices[nextIndexCount++] = baseVertex + 1;
+  buffers.indices[nextIndexCount++] = baseVertex + 2;
+  buffers.indices[nextIndexCount++] = baseVertex;
+  buffers.indices[nextIndexCount++] = baseVertex + 2;
+  buffers.indices[nextIndexCount++] = baseVertex + 3;
+
+  return { vertexCount: nextVertexCount, indexCount: nextIndexCount };
+}
+
+function finalizeMeshBuffers(
+  buffers: Omit<MeshBuffers, 'vertexCount' | 'indexCount'>,
+  vertexCount: number,
+  indexCount: number
+): MeshBuffers {
+  return {
+    positions: buffers.positions.slice(0, vertexCount * 3),
+    normals: buffers.normals.slice(0, vertexCount * 3),
+    colors: buffers.colors.slice(0, vertexCount * 3),
+    uvs: buffers.uvs.slice(0, vertexCount * 2),
+    indices: buffers.indices.slice(0, indexCount),
     vertexCount,
     indexCount,
   };
