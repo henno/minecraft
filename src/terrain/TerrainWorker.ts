@@ -39,5 +39,5 @@ self.onmessage = (event: MessageEvent<TerrainRequest>) => {
   // Transfer the ArrayBuffer to the main thread (zero-copy ownership transfer)
   // After this call, `data` and `data.buffer` are neutered in the worker
   const response: TerrainResponse = { cx, cz, data };
-  self.postMessage(response, [data.buffer as ArrayBuffer]);
+  self.postMessage(response);
 };
