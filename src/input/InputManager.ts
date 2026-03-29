@@ -19,7 +19,6 @@ export class InputManager {
   private pointerLocked = false;
   private lookDeltaX = 0;
   private lookDeltaY = 0;
-  private jumpQueued = false;
   private primaryQueued = false;
   private secondaryQueued = false;
   private selectedSlotQueued: number | null = null;
@@ -28,10 +27,6 @@ export class InputManager {
     const code = event.code;
     if (MOVEMENT_KEYS.has(code) || code === 'Space') {
       event.preventDefault();
-    }
-
-    if (!event.repeat && code === 'Space') {
-      this.jumpQueued = true;
     }
 
     if (!event.repeat && code.startsWith('Digit')) {
@@ -102,13 +97,12 @@ export class InputManager {
       moveZ: (this.isDown('KeyW') ? 1 : 0) - (this.isDown('KeyS') ? 1 : 0),
       lookDeltaX: this.lookDeltaX,
       lookDeltaY: this.lookDeltaY,
-      jumpPressed: this.jumpQueued,
+      jumpPressed: this.isDown('Space'),
       pointerLocked: this.pointerLocked,
     };
 
     this.lookDeltaX = 0;
     this.lookDeltaY = 0;
-    this.jumpQueued = false;
 
     return frame;
   }
