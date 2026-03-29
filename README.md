@@ -34,14 +34,13 @@ Browser voxel engine built with TypeScript, Three.js, and Vite. It generates an 
 
 ## Requirements
 
-- Node.js 20+ recommended
-- npm 10+ recommended
+- Bun 1.3+ recommended
 - Modern desktop browser with WebGL support (Chrome, Firefox, or Safari)
 
 ## Setup
 
 ```bash
-npm install
+bun install
 ```
 
 ## Run Locally
@@ -49,7 +48,7 @@ npm install
 Start the dev server:
 
 ```bash
-npm run dev
+bun run dev
 ```
 
 Then open the local URL printed by Vite.
@@ -57,25 +56,25 @@ Then open the local URL printed by Vite.
 Create a production build:
 
 ```bash
-npm run build
+bun run build
 ```
 
 Preview the production build locally:
 
 ```bash
-npm run preview
+bun run preview
 ```
 
 Build with the GitHub Pages base path locally:
 
 ```bash
-GITHUB_PAGES=true GITHUB_REPOSITORY=henno/minecraft npm run build
+GITHUB_PAGES=true GITHUB_REPOSITORY=henno/minecraft bun run build
 ```
 
 ## Deployment
 
 - Push to `main` to trigger `.github/workflows/deploy-pages.yml`
-- The workflow installs dependencies, builds the Vite app, and publishes `dist/` to GitHub Pages
+- The workflow installs dependencies with Bun, builds the Vite app, and publishes `dist/` to GitHub Pages
 - The production build automatically uses the repository base path when `GITHUB_PAGES=true`
 
 ## Controls
